@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Milk Preference Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+      background: #f8f8ff;
+    }
+    .container {
+      max-width: 400px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 { color: #333; }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Do you want milk?</h2>
+    <form id="milkForm">
+      <label><input type="radio" name="answer" value="Yes"> Yes</label><br>
+      <label><input type="radio" name="answer" value="No"> No</label><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status" style="color:green; margin-top:15px;"></p>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx19fn0RIn_4bPFz4yLArZnPYQ-Wlxuma8fhnZLW_dKxbx8sQwuHPetiAE9WeH95i-M/exec"; // ganti nanti
+
+    document.getElementById('milkForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          document.getElementById('status').textContent = "Response recorded!";
+          e.target.reset();
+        })
+        .catch(error => {
+          document.getElementById('status').textContent = "Error: " + error.message;
+        });
+    });
+  </script>
+</body>
+</html>
